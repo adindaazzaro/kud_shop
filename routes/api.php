@@ -23,7 +23,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/obat', [ObatController::class, 'obat']);
-    Route::get('/search-obat', [ObatController::class, 'search_obat']);
-    
 });
+Route::get('/obat', [ObatController::class, 'obat']);
+Route::get('/search-obat', [ObatController::class, 'search_obat']);
