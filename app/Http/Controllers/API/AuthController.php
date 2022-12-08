@@ -50,9 +50,9 @@ class AuthController extends Controller
     }
     public function profile(Request $request)
     {
-        
+        $response = ['status' => 1, 'msg' => 'Success', 'data' => $request->user()];
         return response()
-            ->json(['status'=>1, 'msg' => 'Success','data' => $request->user()]);
+            ->json(['user' => $response]);
     }
     // method for user logout and delete token
     public function logout()
