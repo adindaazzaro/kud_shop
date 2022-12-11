@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\MKategoriObat;
 use App\Models\MObat;
 use App\Traits\Helper;
 use Illuminate\Http\Request;
@@ -29,5 +30,11 @@ class ObatController extends Controller
                 })
                 ->get();
         return response()->json(['status' => 1, 'msg' => 'Success', 'data' => $obat]);
+    }
+    function kategoriObat()
+    {
+        $kategori = MKategoriObat::get(['id_kategori','nama']);
+        return response()->json(['status' => 1, 'msg' => 'Success', 'data' => $kategori]);
+
     }
 }

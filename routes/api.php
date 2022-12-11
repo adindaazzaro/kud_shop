@@ -26,3 +26,4 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/obat', [ObatController::class, 'obat']);
 Route::get('/search-obat', [ObatController::class, 'search_obat']);
+Route::get('/kategori-obat', [ObatController::class, 'kategoriObat']);
