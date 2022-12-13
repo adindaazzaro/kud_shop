@@ -33,7 +33,7 @@ class ObatController extends Controller
     }
     function kategoriObat()
     {
-        $kategori = MKategoriObat::get(['id_kategori','nama']);
+        $kategori = MKategoriObat::select('id_kategori', 'nama')->get();
         return response()->json(['status' => 1, 'msg' => 'Success', 'data' => $kategori]);
 
     }
