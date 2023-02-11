@@ -1,5 +1,5 @@
 // submit data
-function saveForm(form,url,modal,statusSubmit,method = "post",igoneinput = [], withFile = false){
+function saveForm(form,url,modal,statusSubmit,method = "post",igoneinput = [], withFile = true){
     
     var result = false;
     var validate = false;

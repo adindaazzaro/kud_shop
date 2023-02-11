@@ -10,7 +10,7 @@ function makeModalForm(form,id_modal){
             </div>\
             <div class="modal-body position-relative">\
                 <div class="loading-form">'+buildLoadingForm()+'</div>\
-                <form action="" id="form-data">\
+                <form id="form-data">\
                     '+form+'\
                 </form>\
             </div>\
