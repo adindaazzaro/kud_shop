@@ -51,7 +51,7 @@ class CKategori extends Controller
     }
     public function update($id, Request $request)
     {
-        // dd(decrypt($id));
+        // dd($request->all());
         try {
             MKategoriObat::find(decrypt($id))->update($request->except('_method', '_token'));
             return response()->json(['status' => true, 'msg' => 'Sukses Mengubah Data'], 200);

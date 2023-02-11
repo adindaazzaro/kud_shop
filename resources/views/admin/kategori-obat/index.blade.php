@@ -35,6 +35,7 @@ use App\Traits\Helper;
         </div>
     </div>
 </div>
+
 {{-- build modal --}}
 <div id="target-modal"></div>
 @endsection
