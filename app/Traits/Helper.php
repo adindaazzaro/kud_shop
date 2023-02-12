@@ -201,5 +201,9 @@ trait Helper
         $string = view($template);
         return str_replace("\n", '\n', str_replace('"', '\"', addcslashes(str_replace("\r", '', (string)$string), "\0..\37'\\")));
     }
+    static function responseData($data = null, $msg = 'Success', $status = 200)
+    {
+        return ['status' => $status, 'msg' => $msg, 'data' => $data];
+    }
     
 }
