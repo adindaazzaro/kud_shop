@@ -10,10 +10,10 @@ class HDetailTransaksi extends Model
     use HasFactory;
     protected $table = 'detail_transaksi';
     protected $primaryKey = 'id_detail_transaksi';
-    protected $fillable = ['id_obat','id_transaksi', 'jumlah'];
+    protected $fillable = ['id_obat','kode_transaksi', 'jumlah'];
     function transaksi()
     {
-        return $this->belongsTo(HTansaksi::class,'id_transaksi');
+        return $this->belongsTo(HTansaksi::class,'kode_transaksi','kode_transaksi');
     }
     function obat()
     {

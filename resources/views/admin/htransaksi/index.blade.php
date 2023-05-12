@@ -1,12 +1,12 @@
 @extends('app')
 @section('content')
 
-<?php 
+<?php
 use App\Traits\Helper;
 ?>
 <div class="row m-2">
     <div class="col">
-        
+
         <div class="card card-outline card-info">
             <div class="card-header">
                 <h3 class="card-title">{{$subTitle}}</h3>
@@ -15,6 +15,14 @@ use App\Traits\Helper;
                 </div>
             </div>
             <div class="card-body">
+                @if(session('messages'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Sukses!</strong> {{session('messages')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
                 <div class="table-responsive">
                     <table id="data" class="table table-bordered" width="100%">
                         <thead>
@@ -32,10 +40,10 @@ use App\Traits\Helper;
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
-                    
+
                 </div>
             </div>
         </div>
@@ -104,8 +112,8 @@ function setDataTable() {
 
             }]
         });
-    
-    
+
+
     }
     function format(value) {
     // console.log();

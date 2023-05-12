@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CAdmin;
+use App\Http\Controllers\CAlamatKustomerController;
 use App\Http\Controllers\CDataTable;
 use App\Http\Controllers\CHTransaksi;
 use App\Http\Controllers\CKategori;
@@ -36,8 +37,13 @@ Route::middleware(['auth'])->group(function ()
         Route::resource('pelanggan',CPelanggan::class);
         Route::resource('obat',CObat::class);
         Route::post('obat/update-save/{id}',[CObat::class,'update']);
-        Route::get('htransaksi',CHTransaksi::class);
-        
+        Route::get('htransaksi',[CHTransaksi::class,'index'])->name('transaksi');
+        Route::get('htransaksi/{id_transaksi}',[CHTransaksi::class,'destroy'])->name('transaksi.destroy');
+        Route::get('alamat_pelanggan/{id_kustomer}',[CAlamatKustomerController::class,'index'])->name('alamat.pelanggan');
+        Route::get('alamat_pelanggan_create/{id_kustomer}',[CAlamatKustomerController::class,'create'])->name('alamat.pelanggan.create');
+        Route::post('alamat_pelanggan_save',[CAlamatKustomerController::class,'save'])->name('alamat.pelanggan.save');
+        Route::get('alamat_pelanggan_edit/{id_kustomer}/{id_alamat}',[CAlamatKustomerController::class,'edit'])->name('alamat.pelanggan.edit');
+        Route::get('alamat_pelanggan_delete/{id_kustomer}/{id_alamat}',[CAlamatKustomerController::class,'delete'])->name('alamat.pelanggan.delete');
         Route::get('/pengaturan', [CSettingApp::class, 'index']);
 
         Route::post('/pengaturan-update', [CSettingApp::class, 'saveUpdate']);

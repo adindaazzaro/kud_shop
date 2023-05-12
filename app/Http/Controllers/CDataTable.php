@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use DataTables;
 class CDataTable extends Controller
 {
-    
+
     public function pengguna()
     {
         $model = User::query();
@@ -84,13 +84,17 @@ class CDataTable extends Controller
             ->editColumn('no_hp', function ($row) {
                 return '+62'.$row->no_hp;
             })
+            ->addColumn('alamat', function ($row) {
+                $btn = '<a href="' . route('admin.alamat.pelanggan', encrypt($row->id_pelanggan)) . '" class="text-success edit" tooltip="Alamat Pelanggan"><i class="fas fa-map-marker-alt mr-2"></i> Alamat</a>';
+                return $btn;
+            })
             ->addColumn('action', function ($row) {
                 $btn = '';
                 $btn .= '<a href="' . route('admin.pelanggan.edit', encrypt($row->id_pelanggan)) . '" class="text-primary edit" tooltip="Edit Pelanggan"><i class="fas fa-pencil-alt mr-2"></i></a>';
                 $btn .= '<a href="' . route('admin.pelanggan.destroy', encrypt($row->id_pelanggan)) . '" class="text-danger delete mr-2" tooltip="Hapus Pelanggan"><i class="far fa-trash-alt"></i></a>';
                 return $btn;
             })
-            ->rawColumns(['action', 'foto_conv'])
+            ->rawColumns(['action', 'foto_conv','alamat'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -101,8 +105,7 @@ class CDataTable extends Controller
         return DataTables::eloquent($transaksi)
             ->addColumn('action', function ($row) {
                 $btn = '';
-                $btn .= '<a href="' . route('admin.kategori-obat.edit', encrypt($row->id_transaksi)) . '" class="text-primary edit" tooltip="Edit Kategori Obat"><i class="fas fa-pencil-alt mr-2"></i></a>';
-                $btn .= '<a href="' . route('admin.kategori-obat.destroy', encrypt($row->id_transaksi)) . '" class="text-danger delete mr-2" tooltip="Hapus Kategori Obat"><i class="far fa-trash-alt"></i></a>';
+                $btn .= '<a href="' . route('admin.transaksi.destroy', encrypt($row->id_transaksi)) . '" class="text-danger delete mr-2" tooltip="Hapus Kategori Obat"><i class="far fa-trash-alt"></i></a>';
                 return $btn;
             })
             ->editColumn("total_harga",function ($row)
@@ -133,4 +136,5 @@ class CDataTable extends Controller
             ->addIndexColumn()
             ->toJson();
     }
+
 }

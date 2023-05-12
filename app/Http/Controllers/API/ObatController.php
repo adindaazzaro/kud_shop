@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\MObat;
@@ -14,7 +14,7 @@ class ObatController extends Controller
     {
         $obat = MObat::all();
         return response()->json(['status' => 1, 'msg' => 'Success', 'data' => $obat]);
-        
+
     }
     public function search_obat()
     {

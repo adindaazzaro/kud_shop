@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\ObatController;
+use App\Http\Controllers\Api\AlamatKustomerController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ObatController;
+use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/obat', [ObatController::class, 'obat']);
 Route::get('/search-obat', [ObatController::class, 'search_obat']);
+Route::post('/alamat-list', [AlamatKustomerController::class, 'list']);
+Route::post('/tambah-transaksi', [TransaksiController::class, 'create']);
+Route::post('/upload-bukti-transfer', [TransaksiController::class, 'uploadBuktiTransfer']);

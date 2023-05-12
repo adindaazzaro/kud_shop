@@ -22,11 +22,12 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>No Telepon</th>
+                            <th>Alamat</th>
                             <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -75,6 +76,9 @@
                 },{
                     data: 'no_hp',
                     name: 'no_hp',
+                },{
+                    data: 'alamat',
+                    name: 'alamat',
                 },{
                     data: 'action',
                     name: 'action',
