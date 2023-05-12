@@ -35,6 +35,7 @@ use App\Traits\Helper;
         </div>
     </div>
 </div>
+
 {{-- build modal --}}
 <div id="target-modal"></div>
 @endsection
@@ -51,7 +52,7 @@ var _TITLE_MODAL_ADD = "Tambah Kategori Obat";
 var _TITLE_MODAL_UPDATE = "Ubah Kategori Obat";
 var _ID_UPDATE = "";
 var _URL_INSERT = '{{route("admin.kategori-obat.store")}}';
-var _URL_UPDATE = '{{url("kategori-obat")}}/';
+var _URL_UPDATE = '{{url("admin/kategori-obat")}}/';
 var _URL_DATATABLE = '{{ url("datatable/kategori-obat") }}';
 var _TABLE = null;
 // SESUAIKAN COLUMN DATATABLE

@@ -21,11 +21,9 @@ function saveForm(form,url,modal,statusSubmit,method = "post",igoneinput = [], w
     if(validate){
         $("#btn-submit").attr('disabled','disabled');
         loadingFormStart();
-        $.ajax({
+        var option = {
             type: method,
             url: url,
-            processData: false, // important
-            contentType: false, // important
             data: data,
             dataType: "JSON",
             success: function (response) {
@@ -41,7 +39,12 @@ function saveForm(form,url,modal,statusSubmit,method = "post",igoneinput = [], w
                 $("#btn-submit").removeAttr('disabled');
                 loadingFormStop();
             }
-        });
+        }
+        if(withFile){
+            option.processData = false
+            option.contentType = false
+        }
+        $.ajax(option);
     }
     return result;
 }

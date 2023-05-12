@@ -31,3 +31,4 @@ Route::get('/search-obat', [ObatController::class, 'search_obat']);
 Route::post('/alamat-list', [AlamatKustomerController::class, 'list']);
 Route::post('/tambah-transaksi', [TransaksiController::class, 'create']);
 Route::post('/upload-bukti-transfer', [TransaksiController::class, 'uploadBuktiTransfer']);
+Route::get('/kategori-obat', [ObatController::class, 'kategoriObat']);
