@@ -17,6 +17,6 @@ class HDetailTransaksi extends Model
     }
     function obat()
     {
-        return $this->belongsTo(MObat::class,'id_obat');
+        return $this->hasOne(MObat::class,'id_obat','id_obat');
     }
 }

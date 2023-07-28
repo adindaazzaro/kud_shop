@@ -113,7 +113,7 @@ class CDataTable extends Controller
                 return All_Function::toCurrency($row->total_harga);
             })
             ->addColumn('nama_pelanggan', function ($row) {
-                return $row->pelanggan->nama;
+                return $row->pelanggan?->nama ?? "-";
             })
             ->addColumn('detail', function ($row) use ($setting) {
                 $html = '<h6 class="text-primary">Detail Transaksi</h6>';
@@ -121,11 +121,11 @@ class CDataTable extends Controller
                         foreach ($row->detailTrans as $key => $value) {
                             $html .= '<tr>';
                             $html .= '<td>'.($key+1).'</td>';
-                            $html .= '<td>'.$value->obat->kategori->nama.'</td>';
-                            $html .= '<td>'.$value->obat->nama.'</td>';
-                            $html .= '<td>'. All_Function::toCurrency($value->obat->harga).'</td>';
+                            $html .= '<td>'.($value->obat?->kategori?->nama ?? '-').'</td>';
+                            $html .= '<td>'.($value->obat?->nama ?? '-').'</td>';
+                            $html .= '<td>'. All_Function::toCurrency($value->obat?->harga ?? 0).'</td>';
                             $html .= '<td>'. $value->jumlah.'</td>';
-                            $html .= '<td>'. All_Function::toCurrency((int)$value->obat->harga*(int)$value->jumlah).'</td>';
+                            $html .= '<td>'. All_Function::toCurrency(((int)$value->obat?->harga ?? 0)*(int)$value->jumlah).'</td>';
                             $html .= '</tr>';
                         }
                 $html .= '</table></div>';

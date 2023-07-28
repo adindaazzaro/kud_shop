@@ -55,4 +55,15 @@ class ObatController extends Controller
             //throw $th;
         }
     }
+    function detailObat(){
+        try{
+            $id_obat = request()->query('id_obat');
+            $data = MObat::find($id_obat);
+            return response()->json($this->responseData($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->responseData(null,$th->getMessage(),500));
+
+            //throw $th;
+        }
+    }
 }

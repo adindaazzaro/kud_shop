@@ -13,7 +13,7 @@
 </style>
 <div class="receipt fbprint">
   <div class="receipt-list text-dark">
-    
+
     <div class="text-center mb-2">
       <img src="{{asset('image/setting/'.$setting->logo)}}" class="img-fluid" width="70px" alt="">
     </div>
@@ -29,7 +29,7 @@
         {{date("H:i",strtotime($data->created_at))}}
       </div>
     </div>
-    
+
     <div class="d-flex align-items-center mb-2">
       <div class="text-left">
         Order ID
@@ -43,19 +43,19 @@
         $diskon = 0;
         $subTotal = 0;
     @endphp
-    @foreach ($data->detailTrans as $item)    
+    @foreach ($data->detailTrans as $item)
     <div class="receipt-item fbprint text-dark ">
-      <div class="receipt-label text-capitalize mb-2">{{$item->obat->nama}}</div>
+      <div class="receipt-label text-capitalize mb-2">{{$item->obat?->nama ?? "-"}}</div>
       <div class="receipt-value w-100">
         <div class="float-left">
           <span class="qty">{{$item->jumlah}}</span>
-          <span class="price">{{'@'}}{{AllFunction::toCurrency($item->obat->harga)}}</span>
+          <span class="price">{{'@'}}{{AllFunction::toCurrency($item->obat?->harga ?? 0)}}</span>
         </div>
         <div class="float-right">
           @php
-              $total = (int)$item->obat->harga*(int)$item->jumlah;
+              $total = ((int)$item->obat?->harga ?? 0)*(int)$item->jumlah;
               $subTotal += $total;
-              
+
           @endphp
           {{AllFunction::toCurrency($total)}}
         </div>

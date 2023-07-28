@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\HTransaksi;
+use App\Models\MObat;
 use Illuminate\Support\Facades\DB;
 
 class All_Function
@@ -45,4 +47,22 @@ class All_Function
         }
         return $text;
     }
+    public static function generate_order_number() {
+        // ambil tanggal hari ini
+        $today = date("Ymd");
+
+        // query database untuk mendapatkan nomor urut terakhir
+        // misalnya, kolom nomor_urut di tabel pemesanan
+        $last_order = HTransaksi::get()->count(); // ganti dengan query sesuai dengan database Anda
+        $new_order = $last_order + 1;
+
+        // buat nomor pemesanan dengan format "ORD-YYYYMMDD-XXXX"
+        $order_number = "KUD-" . $today . "-" . sprintf("%04d", $new_order);
+
+        // simpan nomor urut baru ke database
+        // misalnya, update kolom nomor_urut di tabel pemesanan
+        // ganti dengan query sesuai dengan database Anda
+
+        return $order_number;
+      }
 }

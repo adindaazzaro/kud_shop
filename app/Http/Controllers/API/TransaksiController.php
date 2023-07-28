@@ -38,4 +38,20 @@ class TransaksiController extends Controller
             return response()->json(['status' => 0, 'msg' => $th->getMessage()]);
         }
     }
+    function listTransaksiPelanggan(){
+        try {
+            $data = $this->listTransaksi();
+            return response()->json(['status' => 1, 'msg' => 'Success','data'=>$data]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 0, 'msg' => $th->getMessage()]);
+        }
+    }
+    function detailTransaksiPelanggan(){
+        try {
+            $data = $this->detailTransaksi(); # Req kode_transaksi
+            return response()->json(['status' => 1, 'msg' => 'Success','data'=>$data]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 0, 'msg' => $th->getMessage()]);
+        }
+    }
 }

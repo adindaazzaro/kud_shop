@@ -27,8 +27,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 });
 Route::get('/obat', [ObatController::class, 'obat']);
+Route::get('/detail-obat', [ObatController::class, 'detailObat']);
 Route::get('/search-obat', [ObatController::class, 'search_obat']);
 Route::post('/alamat-list', [AlamatKustomerController::class, 'list']);
 Route::post('/tambah-transaksi', [TransaksiController::class, 'create']);
 Route::post('/upload-bukti-transfer', [TransaksiController::class, 'uploadBuktiTransfer']);
+Route::get('/list-transaksi', [TransaksiController::class, 'listTransaksiPelanggan']);
+Route::get('/detail-transaksi', [TransaksiController::class, 'detailTransaksiPelanggan']);
 Route::get('/kategori-obat', [ObatController::class, 'kategoriObat']);
