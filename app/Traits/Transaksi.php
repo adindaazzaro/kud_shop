@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Helpers\All_Function;
 use App\Models\HDetailTransaksi;
 use App\Models\HTransaksi;
+use App\Models\Keranjang;
 use App\Models\MAlamatKustomer;
 use App\Models\MObat;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ trait Transaksi{
 
         $dataInsertDT = []; # Untuk Detail Transaksi
         $dataInsertT = []; # Untuk Detail Transaksi
+        $totalBayar = 0;
 
         $obatBeli = request('obat_beli'); # Hrus Json
         $id_pelanggan = request('id_pelanggan');
@@ -56,8 +58,11 @@ trait Transaksi{
             'no_pesan' => All_Function::generate_order_number(),
             'ongkir' => $ongkir,
         ];
+
         HDetailTransaksi::insert($dataInsertDT);
         HTransaksi::create($dataInsertT);
+        $totalBayar = $harga_total+$ongkir;
+        return $totalBayar;
     }
     function generateKodeTransaksi(){
         $kodeTransaksi = Str::random(20);
@@ -93,5 +98,13 @@ trait Transaksi{
         $stokAsli = $obat->stok;
         $stok = $stokAsli - $qty;
         MObat::where('id_obat',$id_obat)->update(['stok'=>$stok]);
-      }
+    }
+    function hitungSubTotal($idPelanggan){
+        return Keranjang::with('obat')
+            ->where('id_pelanggan', $idPelanggan)
+            ->get()
+            ->sum(function ($item) {
+                return $item->obat->harga * $item->qty;
+            });
+    }
 }

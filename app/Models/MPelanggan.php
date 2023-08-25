@@ -5,10 +5,14 @@ namespace App\Models;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class MPelanggan extends Model
+class MPelanggan extends Authenticatable
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasApiTokens,HasFactory, CreatedUpdatedBy;
+
+    protected $guard_name = 'pelanggan';
     protected $table = 'pelanggan';
     protected $primaryKey = 'id_pelanggan';
     protected $fillable = ['email', 'password', 'nama', 'alamat', 'no_hp', 'foto','deleted'];
@@ -29,5 +33,8 @@ class MPelanggan extends Model
     function htransaksi()
     {
         return $this->hasOne(HTransaksi::class, 'id_pelanggan');
+    }
+    function keranjang(){
+        return $this->hasMany(Keranjang::class,'id_pelanggan');
     }
 }

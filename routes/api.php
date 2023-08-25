@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AlamatKustomerController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\KeranjangController;
 use App\Http\Controllers\Api\ObatController;
 use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Http\Request;
@@ -35,3 +36,11 @@ Route::post('/upload-bukti-transfer', [TransaksiController::class, 'uploadBuktiT
 Route::get('/list-transaksi', [TransaksiController::class, 'listTransaksiPelanggan']);
 Route::get('/detail-transaksi', [TransaksiController::class, 'detailTransaksiPelanggan']);
 Route::get('/kategori-obat', [ObatController::class, 'kategoriObat']);
+
+Route::prefix('keranjang')
+->name('keranjang.')
+->controller(KeranjangController::class)
+->group(function () {
+    Route::post('store','store');
+    Route::post('tambah-kurang','tambahKurang');
+});

@@ -93,7 +93,10 @@ class CPelanggan extends Controller
      */
     public function update($id, PelangganRequest $request)
     {
+        // dd("sadas");
         $data = $request->except(['email','password']);
+
+
         if ($request->password != null) {
             $data['password'] = Hash::make($request->password);
         }
@@ -103,7 +106,7 @@ class CPelanggan extends Controller
             };
             $data['foto'] = $this->uploadImage(public_path('image/pelanggan'), $request->foto);
         }
-        // dd($data);
+
         MPelanggan::find(decrypt($id))->update($data);
         return redirect(route('admin.pelanggan.index'))->with('msg', 'Sukses Mengubah Pelanggan');
     }
@@ -127,5 +130,5 @@ class CPelanggan extends Controller
             return response()->json(['status' => false, 'msg' => $th->getMessage()], 500);
         }
     }
-    
+
 }

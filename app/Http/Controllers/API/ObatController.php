@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keranjang;
 use App\Models\MKategoriObat;
 use App\Models\MObat;
 use App\Traits\Helper;
@@ -57,8 +58,12 @@ class ObatController extends Controller
     }
     function detailObat(){
         try{
-            $id_obat = request()->query('id_obat');
-            $data = MObat::find($id_obat);
+            $idObat = request('id_obat');
+            $idPelanggan = request('id_pelanggan');
+            $data = [
+                'detail' => MObat::find($idObat),
+                'di_keranjang' => Keranjang::where(['id_obat'=>$idObat,'id_pelanggan'=>$idPelanggan])->first()?->value('qty')
+            ];
             return response()->json($this->responseData($data));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));

@@ -23,14 +23,18 @@ class PelangganRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $form = [
             'nama' => 'required',
             'email' => 'required|email|unique:pelanggan|max:255',
             'alamat' => 'required',
             'no_hp' => 'required',
             'foto' => 'mimes:png,jpg,jpeg',
             'password' => 'required',
-
         ];
+        if($this->isMethod('put')){
+            $form['email'] = 'nullable';
+            $form['password'] = 'nullable';
+        }
+        return $form;
     }
 }

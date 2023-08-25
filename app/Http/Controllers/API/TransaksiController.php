@@ -10,15 +10,18 @@ use App\Traits\Uploader;
 
 class TransaksiController extends Controller
 {
+
     use Transaksi, Uploader;
+    public $kodeTransaksi = null;
     public function create()
     {
         try {
+
             DB::transaction(function () {
-                $this->tambahTransaksi();
+                $this->kodeTransaksi = $this->tambahTransaksi();
             });
             DB::commit();
-            return response()->json(['status' => 1, 'msg' => 'Success']);
+            return response()->json(['status' => 1, 'msg' => 'Success','data' => $this->kodeTransaksi]);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['status' => 0, 'msg' => $th->getMessage()]);
@@ -54,4 +57,5 @@ class TransaksiController extends Controller
             return response()->json(['status' => 0, 'msg' => $th->getMessage()]);
         }
     }
+
 }

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\MPelanggan;
 use App\Traits\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,25 +38,22 @@ class AuthController extends Controller
             return response()->json($this->responseData($data));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
-
         }
-
-
     }
 
     public function login(Request $request)
     {
-        try{
-            if (!Auth::attempt($request->only('email', 'password')))
-            {
-                return response()->json($this->responseData(null,'Unauthorized',401));
 
+        try{
+            if (!Auth::guard('pelanggan')->attempt($request->only('email', 'password')))
+            {
+                return response()->json($this->responseData(null,'Email atau Password Salah',200));
             }
 
-            $user = User::where('email', $request['email'])->firstOrFail();
+            $user = MPelanggan::where('email', $request['email'])->firstOrFail();
 
             $token = $user->createToken('auth_token')->plainTextToken;
-            $data = ['message' => 'Hi ' . $user->name . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer'];
+            $data = ['message' => 'Hi ' . $user->nama . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer'];
             return response()->json($this->responseData($data));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
