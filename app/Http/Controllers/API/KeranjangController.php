@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Auth;
 class KeranjangController extends Controller
 {
     use Helper,Transaksi;
+    function list(){
+        try{
+            $idPelanggan = request('id_pelanggan');
+            $keranjang = Keranjang::where([
+                'id_pelanggan' => $idPelanggan,
+            ])->get();
+            return response()->json($this->responseData(['message'=>'Sukses','data'=>$keranjang]));
+        } catch (\Throwable $th) {
+            return response()->json($this->responseData(null,$th->getMessage(),500));
+        }
+    }
     function store(){
         try{
             $idPelanggan = request('id_pelanggan');

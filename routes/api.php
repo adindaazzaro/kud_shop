@@ -41,6 +41,7 @@ Route::prefix('keranjang')
 ->name('keranjang.')
 ->controller(KeranjangController::class)
 ->group(function () {
+    Route::post('list','list');
     Route::post('store','store');
     Route::post('tambah-kurang','tambahKurang');
 });
