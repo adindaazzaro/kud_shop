@@ -53,7 +53,7 @@ class AuthController extends Controller
             $user = MPelanggan::where('email', $request['email'])->firstOrFail();
 
             $token = $user->createToken('auth_token')->plainTextToken;
-            $data = ['message' => 'Hi ' . $user->nama . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer'];
+            $data = ['message' => 'Hi ' . $user->nama . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer','id_pelanggan'=>$user->id_pelanggan];
             return response()->json($this->responseData($data));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
