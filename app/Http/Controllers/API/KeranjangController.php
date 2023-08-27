@@ -72,4 +72,22 @@ class KeranjangController extends Controller
             return response()->json($this->responseData(null,$th->getMessage(),500));
         }
     }
+    function checkUnCheck(){
+        try{
+            $idObat = request('id_obat');
+            $idPelanggan = request('id_pelanggan');
+            $arrayIdObat = explode(",",$idObat);
+            $subTotal = Keranjang::whereIn("id_obat",$arrayIdObat)
+            ->where("id_pelanggan",$idPelanggan)
+            ->get()
+            ->sum(function ($item) {
+                return (int)$item->obat?->harga * $item->qty;
+            });
+            $subTotal = $this->hitungSubTotal($idPelanggan);
+            return response()->json($this->responseData(['sub_total'=>$subTotal]));
+        } catch (\Throwable $th) {
+            return response()->json($this->responseData(null,$th->getMessage(),500));
+        }
+
+    }
 }
