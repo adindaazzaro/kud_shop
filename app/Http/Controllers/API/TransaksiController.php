@@ -13,10 +13,10 @@ class TransaksiController extends Controller
 
     use Transaksi, Uploader;
     public $kodeTransaksi = null;
+    
     public function create()
     {
         try {
-
             DB::transaction(function () {
                 $this->kodeTransaksi = $this->tambahTransaksi();
             });

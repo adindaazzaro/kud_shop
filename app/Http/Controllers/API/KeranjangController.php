@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\KeranjangResource;
 use App\Models\Keranjang;
 use App\Traits\Helper;
 use App\Traits\Transaksi;
@@ -15,10 +16,21 @@ class KeranjangController extends Controller
     function list(){
         try{
             $idPelanggan = request('id_pelanggan');
-            $keranjang = Keranjang::where([
+            $tipe = request('tipe'); # 1 all 2 Sepesific
+            $idKeranjang = request('id_keranjang');
+            $idKeranjang = explode(",",$idKeranjang);
+            $keranjang = Keranjang::with('obat')->where([
                 'id_pelanggan' => $idPelanggan,
-            ])->get();
-            return response()->json($this->responseData(['message'=>'Sukses','data'=>$keranjang]));
+            ]);
+            if($tipe==2){
+                $keranjang = $keranjang->whereIn('id_keranjang',[3,4]);
+
+            }
+            $keranjang = $keranjang->get();
+            // dd($keranjang);
+            $keranjang = KeranjangResource::collection($keranjang);
+            $subTotal = $this->hitungSubTotal($idPelanggan);
+            return response()->json($this->responseData(['message'=>'Sukses','data'=>$keranjang,'sub_total'=>$subTotal]));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
         }
