@@ -15,6 +15,7 @@ class ObatResource extends JsonResource
     public function toArray($request)
     {
         return [
+          'id_obat'=>$this->id_obat,
           'nama'=>$this->nama,
           'foto'=>$this->foto,
           'id_kategori'=>$this->kategori?->nama,
