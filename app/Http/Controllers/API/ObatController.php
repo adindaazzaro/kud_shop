@@ -62,9 +62,9 @@ class ObatController extends Controller
         try{
             $idObat = request('id_obat');
             $idPelanggan = request('id_pelanggan');
-            $obat = MObat::where('id_obat',$idObat)->get();
+            $obat = MObat::find($idObat);
             $data = [
-                'detail' => ObatResource::collection($obat),
+                'detail' => ObatResource::make($obat),
                 'di_keranjang' => Keranjang::where(['id_obat'=>$idObat,'id_pelanggan'=>$idPelanggan])->first()?->value('qty')
             ];
             return response()->json($this->responseData($data));
