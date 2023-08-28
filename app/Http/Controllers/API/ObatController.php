@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ObatResource;
 use App\Models\Keranjang;
 use App\Models\MKategoriObat;
 use App\Models\MObat;
@@ -17,6 +18,7 @@ class ObatController extends Controller
     {
         try {
             $obat = MObat::all();
+            $obat = ObatResource::collection($obat);
             return response()->json($this->responseData($obat));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
