@@ -1,12 +1,12 @@
 @extends('app')
 @section('content')
 
-<?php 
+<?php
 use App\Traits\Helper;
 ?>
 <div class="row m-2">
     <div class="col">
-        
+
         <div class="card card-outline card-info">
             <div class="card-header">
                 <h3 class="card-title">{{$subTitle}}</h3>
@@ -29,7 +29,7 @@ use App\Traits\Helper;
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -112,13 +112,13 @@ function setDataTable() {
                         $("#btn-submit").addClass("disabled");
                         $("#btn-submit").attr("disabled","disabled");
 
-                    }   
+                    }
                 });
-                
+
             }
         });
-    
-    
+
+
     }
 $(document).on('click','#btn-add-data',function(e){
     _STATUS_SUBMIT = 1;
@@ -150,6 +150,7 @@ $(document).on('click','.edit',function(e){
                 modal.find("textarea[name=deskripsi]").val(response.data.deskripsi);
                 modal.find("select[name=id_kategori]").val(response.data.id_kategori);
                 toRupiah(modal.find("input[name=harga]"),response.data.harga);
+                toRupiah(modal.find("input[name=stok]"),response.data.stok);
                 modal.modal("show");
             }
         }

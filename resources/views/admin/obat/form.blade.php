@@ -33,3 +33,7 @@
     <label>Harga</label>
     <input type="text" name="harga" class="form-control numeric" required="">
 </div>
+<div class="form-group">
+    <label>Stok</label>
+    <input type="text" name="stok" class="form-control numeric" required="">
+</div>

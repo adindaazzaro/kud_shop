@@ -22,6 +22,7 @@ class CObat extends Controller
             // dd($request->all());
             $data = $request->except('_method', '_token');
             $data['harga'] = str_replace(".","",$request->harga);
+            $data['stok'] = str_replace(".","",$request->stok);
             $data['foto'] = $this->uploadImage(public_path('image/obat'), $request->foto);
             MObat::create($data);
             return response()->json(['status' => true, 'msg' => 'Sukses Menambahkan Data'], 200);
