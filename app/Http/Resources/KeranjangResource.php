@@ -18,6 +18,7 @@ class KeranjangResource extends JsonResource
             'id_obat'=>$this->obat->id_obat,
             'image'=>"public/image/obat/".$this->obat->foto,
             'nama_obat'=>$this->obat->nama,
+            'kategori'=>$this->obat->kategori->nama,
             'qty'=>$this->qty,
         ];
     }

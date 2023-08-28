@@ -18,7 +18,7 @@ trait Transaksi{
         $dataInsertT = []; # Untuk Detail Transaksi
         $totalBayar = 0;
 
-        $obatBeli = request('obat_beli'); # Hrus Json
+        $idKeranjang = request('id_keranjang'); # Hrus Json
         $id_pelanggan = request('id_pelanggan');
         $id_alamat = request('id_alamat');
         $metode_kirim = request('metode_kirim');
@@ -28,9 +28,10 @@ trait Transaksi{
         $harga_total = 0;
         $kodeTransaksi = $this->generateKodeTransaksi();
 
-        foreach (json_decode($obatBeli)->barang as $key) {
-            $obat = MObat::where('id_obat',$key->id_obat)->first();
-            $harga_total += $obat->harga;
+        $keranjang = Keranjang::whereIn(explode(",",$idKeranjang))->get();
+        foreach ($keranjang as $key) {
+
+            $harga_total += $key->obat->harga;
 
             $data = [
                 'id_obat'=>$key->id_obat,

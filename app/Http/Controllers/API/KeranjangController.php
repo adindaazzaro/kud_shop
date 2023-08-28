@@ -23,8 +23,7 @@ class KeranjangController extends Controller
                 'id_pelanggan' => $idPelanggan,
             ]);
             if($tipe==2){
-                $keranjang = $keranjang->whereIn('id_keranjang',[3,4]);
-
+                $keranjang = $keranjang->whereIn('id_keranjang',$idKeranjang);
             }
             $keranjang = $keranjang->get();
             // dd($keranjang);
@@ -86,16 +85,16 @@ class KeranjangController extends Controller
     }
     function checkUnCheck(){
         try{
-            $idObat = request('id_obat');
             $idPelanggan = request('id_pelanggan');
-            $arrayIdObat = explode(",",$idObat);
-            $subTotal = Keranjang::whereIn("id_obat",$arrayIdObat)
-            ->where("id_pelanggan",$idPelanggan)
+            $idKeranjang = request('id_keranjang');
+            $idKeranjang = explode(",",$idKeranjang);
+            $subTotal = Keranjang::with('obat')->where([
+                'id_pelanggan' => $idPelanggan,
+            ])->whereIn('id_keranjang',$idKeranjang)
             ->get()
             ->sum(function ($item) {
-                return (int)$item->obat?->harga * $item->qty;
+                return $item->obat->harga * $item->qty;
             });
-            $subTotal = $this->hitungSubTotal($idPelanggan);
             return response()->json($this->responseData(['sub_total'=>$subTotal]));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
