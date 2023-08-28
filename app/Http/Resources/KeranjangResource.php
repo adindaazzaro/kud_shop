@@ -15,10 +15,11 @@ class KeranjangResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_obat'=>$this->obat->id_obat,
-            'image'=>"public/image/obat/".$this->obat->foto,
-            'nama_obat'=>$this->obat->nama,
-            'kategori'=>$this->obat->kategori->nama,
+            'id_keranjang'=>$this->id_keranjang,
+            'id_obat'=>$this->obat?->id_obat,
+            'image'=>"public/image/obat/".$this->obat?->foto,
+            'nama_obat'=>$this->obat?->nama,
+            'kategori'=>$this->obat?->kategori->nama,
             'qty'=>$this->qty,
         ];
     }
