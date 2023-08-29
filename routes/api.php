@@ -43,6 +43,7 @@ Route::prefix('keranjang')
 ->group(function () {
     Route::post('list','list');
     Route::post('store','store');
+    Route::post('store-one','storeOne');
     Route::post('delete','delete');
     Route::post('check-uncheck','checkUnCheck');
     Route::post('tambah-kurang','tambahKurang');

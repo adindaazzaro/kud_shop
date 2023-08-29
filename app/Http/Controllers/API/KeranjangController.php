@@ -21,6 +21,7 @@ class KeranjangController extends Controller
             $keranjang = Keranjang::with('obat')->where([
                 'id_pelanggan' => $idPelanggan,
             ]);
+
             $keranjang = $keranjang->get();
             // dd($keranjang);
             $keranjang = KeranjangResource::collection($keranjang);
@@ -43,6 +44,25 @@ class KeranjangController extends Controller
                 'qty' => $qty,
             ]);
             return response()->json($this->responseData(['message'=>'Sukses tambah ke keranjang']));
+        } catch (\Throwable $th) {
+            return response()->json($this->responseData(null,$th->getMessage(),500));
+        }
+    }
+    function storeOne(){
+        try{
+            $idPelanggan = request('id_pelanggan');
+            $idObat = request('id_obat');
+            $qty = request('qty');
+
+            $keranjang = Keranjang::updateOrCreate([
+                'id_pelanggan' => $idPelanggan,
+                'id_obat' => $idObat
+            ],[
+                'qty' => $qty,
+            ]);
+            // dd($keranjang);
+            $keranjang = KeranjangResource::make($keranjang);
+            return response()->json($this->responseData($keranjang));
         } catch (\Throwable $th) {
             return response()->json($this->responseData(null,$th->getMessage(),500));
         }
