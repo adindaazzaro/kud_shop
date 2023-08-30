@@ -17,10 +17,14 @@ class KeranjangController extends Controller
         try{
             $idPelanggan = request('id_pelanggan');
             $idKeranjang = request('id_keranjang');
+            $tipe = request('tipe');
             $idKeranjang = explode(",",$idKeranjang);
             $keranjang = Keranjang::with('obat')->where([
                 'id_pelanggan' => $idPelanggan,
             ]);
+            if($tipe == 2){
+                $keranjang = $keranjang->whereIn('id_keranjang',$idKeranjang);
+            }
 
             $keranjang = $keranjang->get();
             // dd($keranjang);
