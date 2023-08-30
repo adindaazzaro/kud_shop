@@ -28,7 +28,7 @@ trait Transaksi{
         $harga_total = 0;
         $kodeTransaksi = $this->generateKodeTransaksi();
 
-        $keranjang = Keranjang::whereIn(explode(",",$idKeranjang))->get();
+        $keranjang = Keranjang::whereIn("id_keranjang",explode(",",$idKeranjang))->get();
         foreach ($keranjang as $key) {
 
             $harga_total += $key->obat->harga;
