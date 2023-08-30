@@ -19,11 +19,14 @@ class KeranjangController extends Controller
             $idKeranjang = request('id_keranjang');
             $tipe = request('tipe');
             $idKeranjang = explode(",",$idKeranjang);
-            $keranjang = Keranjang::with('obat')->where([
-                'id_pelanggan' => $idPelanggan,
-            ]);
+            $keranjang = Keranjang::with('obat');
             if($tipe == 2){
                 $keranjang = $keranjang->whereIn('id_keranjang',$idKeranjang);
+            }else{
+                $keranjang = $keranjang->where([
+                    'id_pelanggan' => $idPelanggan,
+                ]);
+
             }
 
             $keranjang = $keranjang->get();
